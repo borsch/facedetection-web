@@ -171,10 +171,10 @@
                 <artifactId>jelastic-maven-plugin</artifactId>
                 <version>1.8.2</version>
                 <configuration>
-                    <email></email>
-                    <password></password>
-                    <environment></environment>
-                    <api_hoster></api_hoster>
+                    <email>bborsch.24@gmail.com</email>
+                    <password>TDsadxDJ</password>
+                    <environment>face-detection-web</environment>
+                    <api_hoster>app.mircloud.host/</api_hoster>
                 </configuration>
             </plugin>
             <plugin>
