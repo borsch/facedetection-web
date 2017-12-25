@@ -1,5 +1,7 @@
 package borsch.facedetection.web.controllers;
 
+import org.opencv.core.CvType;
+import org.opencv.core.Mat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,6 +23,11 @@ public class IndexController {
     public IndexController() {
         new File(ROOT_DIR).mkdirs();
         new File(TEMP_FOR_REQUEST).mkdirs();
+
+        nu.pattern.OpenCV.loadShared();
+        System.loadLibrary(org.opencv.core.Core.NATIVE_LIBRARY_NAME);
+        Mat mat = Mat.eye(3, 3, CvType.CV_8UC1);
+        System.out.println("mat = " + mat.dump());
     }
 
     @RequestMapping(value = {"/", "/index"}, method = RequestMethod.GET)
