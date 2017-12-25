@@ -1,0 +1,6 @@
+.idea/
+target/
+*.iml
+src/main/webapp/assets
+node/
+node_modules/
