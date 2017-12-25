@@ -1,14 +1,19 @@
 package borsch.facedetection.web.controllers;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.util.Arrays;
+import java.util.stream.Collectors;
 
 @Controller
 public class IndexController {
@@ -19,7 +24,18 @@ public class IndexController {
     }
 
     @RequestMapping(value = {"/", "/index"}, method = RequestMethod.GET)
-    public String indexPage(){
+    public String indexPage(Model model){
+        File[] persons = new File(ROOT_DIR).listFiles();
+
+        if (persons != null) {
+            model.addAttribute(
+                    "persons",
+                    Arrays.stream(persons)
+                            .map(File::getName)
+                            .collect(Collectors.toList())
+            );
+        }
+
         return "index/index";
     }
 
@@ -35,6 +51,37 @@ public class IndexController {
 
             return false;
         }
+        return true;
+    }
+
+    @RequestMapping(value = "/person/image", method = RequestMethod.GET)
+    public void getPersonImage(
+            @RequestParam("name") String name,
+            HttpServletResponse response
+    ) {
+        File file = new File(ROOT_DIR + "/" + name);
+
+        if (file.exists()) {
+            try {
+                response.getOutputStream().write(Files.readAllBytes(file.toPath()));
+            } catch (IOException e) {
+                // nothing to do
+            }
+        }
+    }
+
+    @RequestMapping(value = "/person/image", method = RequestMethod.DELETE)
+    public @ResponseBody boolean deletePersonImage(
+            @RequestParam("name") String name
+    ) {
+        File file = new File(ROOT_DIR + "/" + name);
+
+        if (file.exists()) {
+            file.setWritable(true);
+
+            return file.delete();
+        }
+
         return true;
     }
 
