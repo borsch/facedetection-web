@@ -9,4 +9,4 @@ This part of project store images of 'friendly' persons and store info about "al
 You do not need any external dependencies. All dependencies, that you need, described in [pom.xml](https://github.com/borsch/facedetection-web/blob/master/pom.xml) file.
 
 ## Environment
-Current build run on Windows 7 OS, Tomcat 8.0.37 used with Java 8(1.8.0_144)
+Current build run on Windows 7 OS, Tomcat 8.0.37 used with Java 8(1.8.0_144), Intellij IDEA 2017.1
